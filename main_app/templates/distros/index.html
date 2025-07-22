@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% load static %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{% static 'css/distros/distro-index.css' %}"
+/>
+{% endblock %} {% block content %}
+
+<h1>Distros</h1>
+  <li><a href="{% url 'distro_create' %}">Add A Distro</a></li>
+{% for distro in distros %}
+<a href="{% url 'distro_detail' distro.id %}">
+<img src="{{distro.photo.url}}" alt="Alt text"/>
+<h2>{{ distro.name }}</h2>
+</a>
+<p>{{ distro.description }}</p>
+
+{% endfor %}
+
+{% endblock %}

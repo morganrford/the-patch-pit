@@ -1,0 +1,13 @@
+{% extends 'base.html' %}  
+{% load static %} 
+{% block content %}
+  <h1>Delete Distro?</h1>
+  <img src="{% static '' %}" alt="Alt text" />
+<h2>Are you sure you want to delete {{ distro.name }}?</h2>
+<form action="" method="post" class="form">
+  {% csrf_token %}
+  <a href="{% url 'distro_detail' distro.id %}" class="btn secondary">Cancel</a>
+  <button type="submit" class="btn danger">Yes - Delete!</button>
+</form>
+
+{% endblock %}

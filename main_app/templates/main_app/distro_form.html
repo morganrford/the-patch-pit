@@ -1,0 +1,19 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}" />
+{% endblock %} 
+{% block content %}
+  {% if distro %}
+    <h1>Edit {{ distro.name }}</h1>
+  {% else %}
+    <h1>Add A Distro</h1>
+  {% endif %}
+<form action="{% url 'distro_upload' %}" method="post" class="form-container" enctype="multipart/form-data">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <button type="submit" class="btn submit">Submit!</button>
+</form>
+{% endblock %}

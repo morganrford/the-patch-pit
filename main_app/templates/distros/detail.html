@@ -1,0 +1,23 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/distros/distro-detail.css' %}" />
+{% endblock %} 
+{% block content %}
+
+<h1>{{ distro.name }}</h1>
+<img src="{{distro.photo.url}}" alt="Alt text"/>
+<a href="{{ distro.website }}" target="_blank">{{ distro.website }}</a>
+<p>{{ distro.description }}</p>
+<a href="{% url 'distro_update' distro.id %}" class="btn warn">Edit</a>
+<a href="{% url 'distro_delete' distro.id %}" class="btn danger">Delete</a>
+
+<h2>Patches</h2>
+{% for patch in distro.patch_set.all %}
+<a href="{% url 'patch_detail' patch.id %}">
+<img src="{{patch.photo.url}}" alt="Alt text"/>
+<p>{{ patch.name }}</p>
+</a>
+{% endfor %}
+
+{% endblock %}
