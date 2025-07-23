@@ -23,8 +23,22 @@
 <li><a href="{% url 'distro_index' %}">Distros</a></li>
 <li><a href="{% url 'patch_index' %}">Patches</a></li>
 <li><a href="{% url 'about' %}">About</a></li>
-
-
+<li>
+  {% if user.is_authenticated %}
+    <span>Fuck you, {{ user.username }}!</span>
+    <form id="logout-form" method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit">Log out</button>
+    </form>
+  {% else %}
+  <form action="{% url 'home' %}" method="post" class="login">
+    {% csrf_token %} {{ form.as_p }}
+    <input type="hidden" name="next" value="{{ next }}" />
+    <button type="submit" class="btn submit">Login</button>
+  </form>
+  <li><a href="{% url 'signup' %}">Sign Up</a></li>
+  {% endif %}
+</li>
         </ul>
       </nav>
     </header>

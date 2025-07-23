@@ -6,19 +6,16 @@
 {% endblock %} {% block content %}
 
 <h1>Patches</h1>
+    {% if user.is_authenticated %}
   <li><a href="{% url 'patch_create' %}">Add A Patch</a></li>
+      {% endif %}
 
 {% for patch in patches %}
 <a href="{% url 'patch_detail' patch.id %}">
-    {% if patch.photo %}
       <img src="{{ patch.photo.url }}" alt="{{ patch.name }} photo" />
-    <!-- {% else %}
-          <img src="{% static 'images/placeholder.png' %}" alt="No photo available" /> -->
-    {% endif %}
-<h2>{{ patch.name }}</h2>
-</a>
-<p>{{ patch.description }}</p>
-
+      <h2>{{ patch.name }}</h2>
+      </a>
+      <p>{{ patch.description }}</p>
 {% endfor %}
 
 {% endblock %}

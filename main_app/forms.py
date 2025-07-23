@@ -10,4 +10,4 @@ class PatchForm(ModelForm):
 class UploadForm(ModelForm):
     class Meta:
         model = Distro
-        fields = ['name', 'photo']
+        fields = '__all__'

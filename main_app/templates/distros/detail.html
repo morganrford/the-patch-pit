@@ -14,10 +14,13 @@
 
 <h2>Patches</h2>
 {% for patch in distro.patch_set.all %}
+
 <a href="{% url 'patch_detail' patch.id %}">
 <img src="{{patch.photo.url}}" alt="Alt text"/>
 <p>{{ patch.name }}</p>
 </a>
+{% empty %}
+<p>No patches yet.</p>
 {% endfor %}
 
 {% endblock %}

@@ -6,7 +6,9 @@
 {% endblock %} {% block content %}
 
 <h1>Distros</h1>
+    {% if user.is_authenticated %}
   <li><a href="{% url 'distro_create' %}">Add A Distro</a></li>
+      {% endif %}
 {% for distro in distros %}
 <a href="{% url 'distro_detail' distro.id %}">
 <img src="{{distro.photo.url}}" alt="Alt text"/>
