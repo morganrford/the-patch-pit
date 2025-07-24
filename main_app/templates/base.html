@@ -23,9 +23,11 @@
 <li><a href="{% url 'distro_index' %}">Distros</a></li>
 <li><a href="{% url 'patch_index' %}">Patches</a></li>
 <li><a href="{% url 'about' %}">About</a></li>
+{% if user.is_authenticated %}
 <li>
-  {% if user.is_authenticated %}
-    <span>Fuck you, {{ user.username }}!</span>
+ <a class="nav-item nav-link" href="{% url 'profile' user.username %}">
+        {{user.username}} <i class="fas fa-user"></i>
+    </a>
     <form id="logout-form" method="post" action="{% url 'signout' %}">
       {% csrf_token %}
       <button type="submit">Log out</button>
@@ -34,8 +36,8 @@
   {% else %}
   <li><a href="{% url 'signin' %}">Sign In</a></li>
   <li><a href="{% url 'signup' %}">Sign Up</a></li>
+</ul>
   {% endif %}
-        </ul>
       </nav>
     </header>
     <main>

@@ -4,12 +4,12 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Distro, Patch
 from main_app.models import Distro, Patch
 from django.http import Http404
-from .forms import PatchForm, UserForm
+from .forms import PatchForm, UserForm, UserUpdateForm
 from main_app.forms import UploadForm, PatchForm, LoginForm
 from django.contrib.auth.views import LoginView
 from django.views.generic import ListView, DetailView
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout, authenticate, get_user_model
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 def home(request):
@@ -130,17 +130,37 @@ def signout_view(request):
     return redirect('home')
 
 def signin(request):
-    form = LoginForm()
+    form = AuthenticationForm()
     if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():    
-            username = request.POST.get("username")
-            password = request.POST.get("password")
-            user = authenticate(request, username = username, password = password)
-            if user is not None:
-                login(request, user)
-                return redirect('home')
+        form = AuthenticationForm()
+        # if form.is_valid():    
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(request, username = username, password = password)
+        if user is not None:
+            login(request, user)
+            print(f"User is not none")
+            return redirect('home')
     # else:
     error_message = 'Invalid sign in - try again'
-    context = {'error_message': error_message}
+    context = {'form': form, 'error_message': error_message}
     return render(request, 'signin.html', context)
+
+def profile(request, username):
+    if request.method == 'POST':
+        user = request.user
+        form = UserUpdateForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            user_form = form.save()
+            return redirect('profile', user_form.username)
+
+        for error in list(form.errors.values()):
+            messages.error(request, error)
+
+    user = get_user_model().objects.filter(username=username).first()
+    if user:
+        form = UserUpdateForm(instance=user)
+        form.fields['description'].widget.attrs = {'rows': 1}
+        return render(request, 'users/profile.html', context={'form': form})
+
+    return redirect("homepage")

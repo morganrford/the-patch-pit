@@ -1,6 +1,9 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.db import models
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
+
 
 class Distro(models.Model):
     name = models.CharField(max_length=100)
@@ -14,7 +17,7 @@ class Distro(models.Model):
     def get_absolute_url(self):
         return reverse('distro_detail', kwargs={'distro_id': self.id})
     
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
 class Patch(models.Model):
     name = models.CharField(max_length=100)
@@ -29,3 +32,6 @@ class Patch(models.Model):
     
     def get_absolute_url(self):
         return reverse('patch_detail', kwargs={'patch_id': self.id})
+    
+class CustomUser(AbstractUser):
+    description = models.TextField(blank=True, null=True)
