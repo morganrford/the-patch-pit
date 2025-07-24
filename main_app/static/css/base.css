@@ -2,9 +2,3 @@
 body {
   background-color: pink;
 }
-
-#logout-form button {
-  text-decoration: none;
-  background: none;
-  border: none;
-}

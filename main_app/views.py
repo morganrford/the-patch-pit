@@ -4,11 +4,11 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Distro, Patch
 from main_app.models import Distro, Patch
 from django.http import Http404
-from .forms import PatchForm
-from main_app.forms import UploadForm, PatchForm
+from .forms import PatchForm, UserForm
+from main_app.forms import UploadForm, PatchForm, LoginForm
 from django.contrib.auth.views import LoginView
 from django.views.generic import ListView, DetailView
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -114,17 +114,33 @@ def patch_upload(request):
 def signup(request):
     error_message = ''
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('cat-index')
+            return redirect('distro_index')
         else:
             error_message = 'Invalid sign up - try again'
-    form = UserCreationForm()
+    form = UserForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'signup.html', context)
 
-def logout_view(request):
+def signout_view(request):
     logout(request)
     return redirect('home')
+
+def signin(request):
+    form = LoginForm()
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():    
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+            user = authenticate(request, username = username, password = password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+    # else:
+    error_message = 'Invalid sign in - try again'
+    context = {'error_message': error_message}
+    return render(request, 'signin.html', context)

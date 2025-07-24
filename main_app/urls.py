@@ -22,8 +22,8 @@ urlpatterns = [
     path('patches/upload', views.patch_upload, name='patch_upload'),
     path('patches/<int:patch_id>/', views.patch_detail, name='patch_detail'),
     path('accounts/signup/', views.signup, name='signup'),
-    # path('accounts/signin/', views.signin, name='signin'),
-    path('accounts/logout/', views.logout, name='logout'),
+    path('accounts/signin/', views.signin, name='signin'),
+    path('accounts/logout/', views.signout_view, name='signout'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
