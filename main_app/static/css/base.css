@@ -1,5 +1,9 @@
 
 body {
-  background-color: pink;
-  color: black;
+  background-color: black;
+  color: white;
+}
+
+a {
+  text-decoration: none;
 }

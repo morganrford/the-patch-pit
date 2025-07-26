@@ -17,7 +17,7 @@ class UploadForm(ModelForm):
 
 class UserForm(UserCreationForm):
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ['username', 'password1', 'password2', 'email', 'first_name', 'last_name']
 
 class LoginForm(forms.Form):
@@ -29,4 +29,4 @@ class UserUpdateForm(forms.ModelForm):
 
      class Meta:
           model = get_user_model()
-          fields = ['first_name', 'last_name', 'email', 'description']
+          fields = ['first_name', 'last_name', 'email']

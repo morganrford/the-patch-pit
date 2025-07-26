@@ -10,6 +10,7 @@ from django.contrib.auth.views import LoginView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -146,7 +147,8 @@ def signin(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'signin.html', context)
 
-def profile(request, username):
+@login_required
+def profile(request,username):
     if request.method == 'POST':
         user = request.user
         form = UserUpdateForm(request.POST, request.FILES, instance=user)
@@ -154,13 +156,15 @@ def profile(request, username):
             user_form = form.save()
             return redirect('profile', user_form.username)
 
-        for error in list(form.errors.values()):
-            messages.error(request, error)
-
     user = get_user_model().objects.filter(username=username).first()
     if user:
         form = UserUpdateForm(instance=user)
-        form.fields['description'].widget.attrs = {'rows': 1}
-        return render(request, 'users/profile.html', context={'form': form})
+        # form.fields['description'].widget.attrs = {'rows': 1}
+
+        distros = Distro.objects.filter(user=user)
+        return render(request, 'users/profile.html', context={'form': form, 'user': user, 'distros': distros})
 
     return redirect("homepage")
+
+def contact(request):
+    return render(request, 'contact.html')

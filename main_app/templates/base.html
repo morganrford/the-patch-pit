@@ -12,21 +12,22 @@
     {% endblock %}
   </head>
   <body>
-    <header>
-      <div class="header-logo-container">
-        <a href="/">
-          <img src="" alt="The Patch Pit" />
-        </a>
-      </div>
-      <nav>
-        <ul>
-<li><a href="{% url 'distro_index' %}">Distros</a></li>
-<li><a href="{% url 'patch_index' %}">Patches</a></li>
-<li><a href="{% url 'about' %}">About</a></li>
+  <header>
+ 
+    <nav class="navbar">
+
+      <ul>
+        <li><a href="{% url 'distro_index' %}">Distros</a></li>
+        <li><a href="{% url 'patch_index' %}">Patches</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+        <li class="nav-title"><a href="/"><img src="" alt="The Patch Pit" /></a></li>
 {% if user.is_authenticated %}
 <li>
- <a class="nav-item nav-link" href="{% url 'profile' user.username %}">
-        {{user.username}} <i class="fas fa-user"></i>
+Fuck you,
+ <a href="{% url 'profile' user.username %}">
+{{user.username}} 
+
     </a>
     <form id="logout-form" method="post" action="{% url 'signout' %}">
       {% csrf_token %}
@@ -39,10 +40,12 @@
 </ul>
   {% endif %}
       </nav>
+
     </header>
     <main>
      {% block content %} 
      {% endblock %}
      </main>
+    </section>
   </body>
 </html>
