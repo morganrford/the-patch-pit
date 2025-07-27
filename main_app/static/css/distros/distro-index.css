@@ -2,3 +2,22 @@ body {
   background-color: black;
   color: white;
 }
+
+.page-title {
+  display: flex;
+  justify-content: center;
+}
+
+.add {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+.distros {
+/* center this */
+}
+
+.distro {
+/* center this */
+}

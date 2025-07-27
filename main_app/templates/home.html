@@ -4,15 +4,18 @@
   href="{% static 'css/home.css' %}"
 />
 {% endblock %} {% block content %}
-
-<h1>The Patch Pit</h1>
-
+<div class="welcome">
+<h1>Welcome To The Patch Pit</h1>
+</div>
+<div class="patches">
 {% for patch in patches %}
+<div class="patch">
   <a href="{% url 'patch_detail' patch.id %}">
     <img src="{{ patch.photo.url }}" alt="{{ patch.name }} photo" />
   </a>
+</div>
 {% empty %}
   <p>No patches yet.</p>
 {% endfor %}
-
+</div>
 {% endblock %}

@@ -2,3 +2,33 @@ body {
   background-color: black;
   color: white;
 }
+
+.patches {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem; 
+}
+
+.patch {
+  width: 180px;
+  box-sizing: border-box;
+}
+
+.patch img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.page-title {
+  display: flex;
+  justify-content: center;
+}
+
+.add {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}

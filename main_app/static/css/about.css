@@ -2,3 +2,14 @@ body {
   background-color: black;
   color: white;
 }
+
+.page-title {
+  display: flex;
+  justify-content: center;
+}
+
+.about {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}

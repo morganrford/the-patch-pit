@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" type="image/png" href="" />
+    <link rel="shortcut icon" type="image/png" href="/main_app/static/assets/tpplogo.jpg" />
     <title>The Patch Pit</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     {% block head %} 
@@ -16,22 +16,29 @@
  
     <nav class="navbar">
 
-      <ul>
+      <ul class="nav-links">
+                <li><a href="{% url 'home' %}">Home</a></li>
         <li><a href="{% url 'distro_index' %}">Distros</a></li>
         <li><a href="{% url 'patch_index' %}">Patches</a></li>
         <li><a href="{% url 'about' %}">About</a></li>
         <li><a href="{% url 'contact' %}">Contact</a></li>
-        <li class="nav-title"><a href="/"><img src="" alt="The Patch Pit" /></a></li>
-{% if user.is_authenticated %}
+        </ul>
+        <ul class="nav-title">
+        <li class="logo"><a href="/"><img src="{% static 'assets/patchpit.jpg' %}" alt="The Patch Pit" /></a></li>
+        </ul>
+
+        {% if user.is_authenticated %}
+<ul class="nav-user">
 <li>
 Fuck you,
  <a href="{% url 'profile' user.username %}">
 {{user.username}} 
-
-    </a>
+</a>
+</li>
+<li>
     <form id="logout-form" method="post" action="{% url 'signout' %}">
       {% csrf_token %}
-      <button type="submit">Log out</button>
+      <button type="submit" class="logout-button">Log out</button>
     </form>
 </li>
   {% else %}
