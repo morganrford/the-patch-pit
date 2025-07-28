@@ -1,12 +1,20 @@
 
-body {
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   background-color: black;
   color: white;
+  font-family: 'Bebas Neue', sans-serif;
 }
 
 a {
   text-decoration: none;
   color: white;
+}
+
+a:hover {
+color: #000;
 }
 
 .navbar {
@@ -16,8 +24,8 @@ a {
   padding: 0 1rem;
   position: relative;
   background-color: black;
-  height: 50px;
-  
+  height: 60px;
+  border: 2px solid white;
 }
 
 .nav-links,
@@ -46,10 +54,31 @@ a {
   font: inherit;
 }
 
+.logout-button:hover {
+  color: #000;
+}
+
 .logo img {
   max-height: 50px;
   width: auto;
   display: block;
   margin: 0;
   padding: 0;
+}
+
+.footer {
+  background-color: black;
+  color: white;
+  text-align: center;
+  margin-top: auto;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border: 2px solid white;
 }

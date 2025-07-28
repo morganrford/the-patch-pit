@@ -1,16 +1,34 @@
 {% extends 'base.html' %} 
 {% load static %} 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/form.css' %}" />
+<link rel="stylesheet" href="{% static 'css/profile.css' %}" />
 {% endblock %} 
 {% block content %}
+<div class="page-title">
 <h1>{{ user }}</h1>
+</div>
+<h2>Distros</h2>
+      <div class="distros">
 {% for distro in distros %}
+<div class="distro">
 <a href="{% url 'distro_detail' distro.id %}">
 <img src="{{distro.photo.url}}" alt="Alt text"/>
-<h2>{{ distro.name }}</h2>
+<h3>{{ distro.name }}</h3>
 </a>
 <p>{{ distro.description }}</p>
+</div>
 {% endfor %}
-<!-- loop over patches -->
+</div>
+
+<h2>Patches</h2>
+<div class="patches">
+{% for patch in patches %}
+<div class="patch">
+<a href="{% url 'patch_detail' patch.id %}">
+      <img src="{{ patch.photo.url }}" alt="{{ patch.name }} photo" />
+      <h3>{{ patch.name }}</h3>
+      </a>
+      </div>
+{% endfor %}
+</div>
 {% endblock %}

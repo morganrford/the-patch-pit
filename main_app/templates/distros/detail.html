@@ -4,23 +4,41 @@
 <link rel="stylesheet" href="{% static 'css/distros/distro-detail.css' %}" />
 {% endblock %} 
 {% block content %}
-
+<div class="page-title">
 <h1>{{ distro.name }}</h1>
+</div>
+
+ <div class="distros">
+    <div class="distro">
 <img src="{{distro.photo.url}}" alt="Alt text"/>
 <a href="{{ distro.website }}" target="_blank">{{ distro.website }}</a>
 <p>{{ distro.description }}</p>
+</div>
+</div>
+
+{% if user.is_authenticated %}
+<div class="edit-delete">
 <a href="{% url 'distro_update' distro.id %}" class="btn warn">Edit</a>
 <a href="{% url 'distro_delete' distro.id %}" class="btn danger">Delete</a>
+</div>
+      {% endif %}
 
+<div class="page-title">
 <h2>Patches</h2>
-{% for patch in distro.patch_set.all %}
+</div>
 
-<a href="{% url 'patch_detail' patch.id %}">
-<img src="{{patch.photo.url}}" alt="Alt text"/>
-<p>{{ patch.name }}</p>
-</a>
-{% empty %}
-<p>No patches yet.</p>
-{% endfor %}
-
+<div class="patches">
+  {% if distro.patch_set.all %}
+    {% for patch in distro.patch_set.all %}
+      <div class="patch">
+        <a href="{% url 'patch_detail' patch.id %}">
+          <img src="{{ patch.photo.url }}" alt="{{ patch.name }} photo" />
+          <h3>{{ patch.name }}</h3>
+        </a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="no-patches">No patches yet.</p>
+  {% endif %}
+</div>
 {% endblock %}

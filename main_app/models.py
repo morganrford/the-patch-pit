@@ -33,5 +33,7 @@ class Patch(models.Model):
     def get_absolute_url(self):
         return reverse('patch_detail', kwargs={'patch_id': self.id})
     
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    
 class CustomUser(AbstractUser):
     description = models.TextField(blank=True, null=True)

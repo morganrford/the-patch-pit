@@ -2,3 +2,32 @@ body {
   background-color: black;
   color: white;
 }
+
+.page-title {
+  display: flex;
+  justify-content: center;
+}
+
+.patches {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.patch {
+  width: 500px;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.patch img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.edit-delete {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}

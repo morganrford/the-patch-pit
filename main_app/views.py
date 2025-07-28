@@ -11,6 +11,7 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def home(request):
@@ -29,9 +30,9 @@ def distro_detail(request, distro_id):
     patch_form = PatchForm()
     return render(request, 'distros/detail.html', {'distro': distro, 'patch_form': patch_form})
 
-class DistroCreate(CreateView):
+class DistroCreate(LoginRequiredMixin, CreateView):
     model = Distro
-    fields = '__all__'
+    fields = ['name', 'photo', 'website', 'description']
     def form_valid(self, form):
         form.instance.user = self.request.user  
         return super().form_valid(form)
@@ -159,10 +160,11 @@ def profile(request,username):
     user = get_user_model().objects.filter(username=username).first()
     if user:
         form = UserUpdateForm(instance=user)
-        # form.fields['description'].widget.attrs = {'rows': 1}
 
         distros = Distro.objects.filter(user=user)
-        return render(request, 'users/profile.html', context={'form': form, 'user': user, 'distros': distros})
+        # patches = Patch.objects.filter(user=user)
+        patches = Patch.objects.filter(distro__user=user)
+        return render(request, 'users/profile.html', context={'form': form, 'user': user, 'distros': distros, 'patches': patches})
 
     return redirect("homepage")
 

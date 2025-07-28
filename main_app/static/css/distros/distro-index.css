@@ -12,12 +12,28 @@ body {
   display: flex;
   justify-content: center;
   list-style: none;
+  padding: 10px;
 }
 
 .distros {
-/* center this */
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  gap: 2rem; 
+  padding: 1rem;
 }
 
 .distro {
-/* center this */
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.distro img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
 }
