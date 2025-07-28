@@ -1,21 +1,24 @@
-{% extends 'base.html' %} 
-{% load static %} 
-{% block head %}
+{% extends 'base.html' %} {% load static %} {% block head %}
 <link rel="stylesheet" href="{% static 'css/form.css' %}" />
-{% endblock %} 
-{% block content %}
-<div class="page-header">
+{% endblock %} {% block content %}
+<div class="page-title">
   <h1>Sign Up</h1>
 </div>
-{% if error_message %}
-  <p class="red-text">{{ error_message }}</p>
-{% endif %}
-<form action="" method="post" class="form-container" autocomplete="off">
-  {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-  </table>
-  <button type="submit" class="btn submit">Submit!</button>
-</form>
 
+{% if error_message %}
+
+<p class="error">{{ error_message }}</p>
+{% endif %}
+
+<div class="signup">
+  <form action="" method="post" class="form-container" autocomplete="off">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <div class="button-wrapper">
+      <button type="submit" class="button">Sign Up</button>
+    </div>
+  </form>
+</div>
 {% endblock %}

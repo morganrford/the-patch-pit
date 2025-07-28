@@ -1,26 +1,23 @@
 {% extends 'base.html' %} {% load static %} {% block head %}
-<link
-  rel="stylesheet"
-  href="{% static 'css/patches/patch-index.css' %}"
-/>
+<link rel="stylesheet" href="{% static 'css/patches/patch-index.css' %}" />
 {% endblock %} {% block content %}
 <div class="page-title">
-<h1>Patches</h1>
+  <h1>Patches</h1>
 </div>
 <div class="add">
-{% if user.is_authenticated %}
-<li><a href="{% url 'patch_create' %}">Add A Patch</a></li>
-{% endif %}
+  {% if user.is_authenticated %}
+  <li><a href="{% url 'patch_create' %}">Add A Patch</a></li>
+  {% endif %}
 </div>
 
 <div class="patches">
-{% for patch in patches %}
-<div class="patch">
-<a href="{% url 'patch_detail' patch.id %}">
+  {% for patch in patches %}
+  <div class="patch">
+    <a href="{% url 'patch_detail' patch.id %}">
       <img src="{{ patch.photo.url }}" alt="{{ patch.name }} photo" />
       <h2>{{ patch.name }}</h2>
-      </a>
-      </div>
-{% endfor %}
+    </a>
+  </div>
+  {% endfor %}
 </div>
 {% endblock %}

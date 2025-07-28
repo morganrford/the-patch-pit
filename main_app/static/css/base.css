@@ -82,3 +82,27 @@ color: #000;
   width: 100%;
   border: 2px solid white;
 }
+
+@media (max-width: 800px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding: 1rem 0;
+    gap: 1rem;
+  }
+
+  .nav-title {
+    position: static;
+    transform: none;
+    order: -1;
+    text-align: center;
+  }
+
+  .nav-links,
+  .nav-user {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}

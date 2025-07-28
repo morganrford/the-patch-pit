@@ -13,7 +13,6 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-
 def home(request):
     patches = Patch.objects.all()
     return render(request, 'home.html', {'patches': patches})
@@ -44,20 +43,6 @@ class DistroUpdate(UpdateView):
 class DistroDelete(DeleteView):
     model = Distro
     success_url = '/distros/'
-
-# def distro(request, distro_id):
-#     distro = Distro.objects.get(pk=distro_id)
-#     if distro is not None:
-#         return render(request, 'distros/distro.html', {'distro': distro})
-#     else:
-#         raise Http404('Distro does not exist.')
-    
-# def patch(request, patch_id):
-#     patch = Patch.objects.get(pk=patch_id)
-#     if patch is not None:
-#         return render(request, 'patches/patch.html', {'patch': patch})
-#     else:
-#         raise Http404('Patch does not exist.')
     
 def patch_index(request):
     patches = Patch.objects.all()
@@ -67,17 +52,9 @@ def patch_detail(request, patch_id):
     patch = Patch.objects.get(id=patch_id)
     return render(request, 'patches/detail.html', {'patch': patch})
 
-# def add_patch(request, distro_id):
-#     form = PatchForm(request.POST)
-#     if form.is_valid():
-#         new_patch = form.save(commit=False)
-#         new_patch.distro_id = distro_id
-#         new_patch.save()
-#     return redirect('distro-detail', distro_id=distro_id)
-
-class PatchCreate(CreateView):
+class PatchCreate(LoginRequiredMixin, CreateView):
     model = Patch
-    fields = '__all__'
+    fields = ['name', 'photo', 'link', 'description']
     success_url = '/patches/'
     def form_valid(self, form):
         form.instance.user = self.request.user  
@@ -96,7 +73,7 @@ def distro_upload(request):
         form = UploadForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('distro_index')  # Redirect after successful save
+            return redirect('distro_index')
     else:
         form = UploadForm()
     
@@ -107,7 +84,7 @@ def patch_upload(request):
         form = PatchForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('patch_index')  # Redirect after successful save
+            return redirect('patch_index')
     else:
         form = PatchForm()
     
@@ -120,9 +97,9 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('distro_index')
+            return redirect('home')
         else:
-            error_message = 'Invalid sign up - try again'
+            error_message = 'Invalid sign up - try again!'
     form = UserForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'signup.html', context)
@@ -134,8 +111,7 @@ def signout_view(request):
 def signin(request):
     form = AuthenticationForm()
     if request.method == 'POST':
-        form = AuthenticationForm()
-        # if form.is_valid():    
+        form = AuthenticationForm()  
         username = request.POST.get("username")
         password = request.POST.get("password")
         user = authenticate(request, username = username, password = password)
@@ -143,7 +119,6 @@ def signin(request):
             login(request, user)
             print(f"User is not none")
             return redirect('home')
-    # else:
     error_message = 'Invalid sign in - try again'
     context = {'form': form, 'error_message': error_message}
     return render(request, 'signin.html', context)
@@ -162,11 +137,10 @@ def profile(request,username):
         form = UserUpdateForm(instance=user)
 
         distros = Distro.objects.filter(user=user)
-        # patches = Patch.objects.filter(user=user)
         patches = Patch.objects.filter(distro__user=user)
         return render(request, 'users/profile.html', context={'form': form, 'user': user, 'distros': distros, 'patches': patches})
 
-    return redirect("homepage")
+    return redirect("profile")
 
 def contact(request):
     return render(request, 'contact.html')

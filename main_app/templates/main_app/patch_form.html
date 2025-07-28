@@ -1,19 +1,26 @@
-{% extends 'base.html' %} 
-{% load static %} 
-{% block head %}
+{% extends 'base.html' %} {% load static %} {% block head %}
 <link rel="stylesheet" href="{% static 'css/form.css' %}" />
-{% endblock %} 
-{% block content %}
-  {% if patch %}
-    <h1>Edit {{ patch.name }}</h1>
-  {% else %}
-    <h1>Add A Patch</h1>
-  {% endif %}
-<form action="{% url 'patch_upload' %}" method="post" class="form-container" enctype="multipart/form-data">
+{% endblock %} {% block content %} {% if patch %}
+<div class="page-title">
+  <h1>Edit {{ patch.name }}</h1>
+</div>
+{% else %}
+<div class="page-title">
+  <h1>Add A Patch</h1>
+</div>
+{% endif %}
+<form
+  action="{% url 'patch_upload' %}"
+  method="post"
+  class="form"
+  enctype="multipart/form-data"
+>
   {% csrf_token %}
   <table>
     {{ form.as_table }}
   </table>
-  <button type="submit" class="btn submit">Submit</button>
+  <div>
+    <button type="submit" class="button">Submit</button>
+  </div>
 </form>
 {% endblock %}

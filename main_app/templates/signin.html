@@ -7,13 +7,22 @@
 
 {% if not user.is_authenticated %}
 <section>
+  <div class="page-title">
     <h1>Sign In</h1>
+</div>
 
+<div class="login">
   <form action="" method="post" class="login">
-    {% csrf_token %} {{ form.as_table }}
-
-    <button type="submit" class="btn submit">Sign In</button>
+    {% csrf_token %} 
+    <table>
+      {{ form.as_table }}
+</table>
+  </div>
+  <div class="button-wrapper">
+    <button type="submit" class="button">Sign In</button>
+    </div>
   </form>
+
 </section>
 {% endif %}
 

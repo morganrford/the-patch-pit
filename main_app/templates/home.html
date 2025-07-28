@@ -1,21 +1,18 @@
 {% extends 'base.html' %} {% load static %} {% block head %}
-<link
-  rel="stylesheet"
-  href="{% static 'css/home.css' %}"
-/>
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% endblock %} {% block content %}
 <div class="welcome">
-<h1>Welcome To The Patch Pit</h1>
+  <h1>Welcome To The Patch Pit</h1>
 </div>
 <div class="patches">
-{% for patch in patches %}
-<div class="patch">
-  <a href="{% url 'patch_detail' patch.id %}">
-    <img src="{{ patch.photo.url }}" alt="{{ patch.name }} photo" />
-  </a>
-</div>
-{% empty %}
+  {% for patch in patches %}
+  <div class="patch">
+    <a href="{% url 'patch_detail' patch.id %}">
+      <img src="{{ patch.photo.url }}" alt="{{ patch.name }} photo" />
+    </a>
+  </div>
+  {% empty %}
   <p>No patches yet.</p>
-{% endfor %}
+  {% endfor %}
 </div>
 {% endblock %}
