@@ -36,4 +36,4 @@ class Patch(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
 class CustomUser(AbstractUser):
-    description = models.TextField(blank=True, null=True)
+    description = models.TextField("Description", max_length=500, blank=True, null=True)

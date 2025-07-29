@@ -36,13 +36,19 @@ class DistroCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user  
         return super().form_valid(form)
 
-class DistroUpdate(UpdateView):
+class DistroUpdate(LoginRequiredMixin, UpdateView):
     model = Distro
     fields = ['website', 'description']
+    def get_queryset(self):
+        # Only allow the user to update their own posts
+        return Distro.objects.filter(user=self.request.user) 
 
-class DistroDelete(DeleteView):
+class DistroDelete(LoginRequiredMixin, DeleteView):
     model = Distro
     success_url = '/distros/'
+    def get_queryset(self):
+    # Only allow the user to update their own posts
+        return Distro.objects.filter(user=self.request.user) 
     
 def patch_index(request):
     patches = Patch.objects.all()
@@ -54,19 +60,50 @@ def patch_detail(request, patch_id):
 
 class PatchCreate(LoginRequiredMixin, CreateView):
     model = Patch
-    fields = ['name', 'photo', 'link', 'description']
+    fields = ['name', 'photo', 'link', 'description', 'distro']
+    
     success_url = '/patches/'
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # Limit distros field to only distros owned by the logged-in user
+        form.fields['distro'].queryset = Distro.objects.filter(user=self.request.user)
+        return form
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    def form_invalid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+class PatchUpdate(LoginRequiredMixin, UpdateView):
+    model = Patch
+    fields = ['name', 'photo', 'link', 'description', 'distro']
+    def get_queryset(self):
+        # Only allow the user to update their own posts
+        return Patch.objects.filter(user=self.request.user) 
+    def form_invalid(self, form):
+        # Make sure object and pk are in the context
+        context = self.get_context_data(form=form, object=self.object, pk=self.object.pk)
+        return self.render_to_response(context)
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # Limit distros field to only distros owned by the logged-in user
+        form.fields['distro'].queryset = Distro.objects.filter(user=self.request.user)
+        return form
     def form_valid(self, form):
         form.instance.user = self.request.user  
         return super().form_valid(form)
 
-class PatchUpdate(UpdateView):
-    model = Patch
-    fields = '__all__'
-
-class PatchDelete(DeleteView):
+class PatchDelete(LoginRequiredMixin, DeleteView):
     model = Patch
     success_url = '/patches/'
+    def get_queryset(self):
+        # Only allow the user to update their own posts
+        return Patch.objects.filter(user=self.request.user)
+    def form_invalid(self, form):
+        # Make sure object and pk are in the context
+        context = self.get_context_data(form=form, object=self.object, pk=self.object.pk)
+        return self.render_to_response(context) 
 
 def distro_upload(request):
     if request.method == 'POST':
@@ -124,23 +161,12 @@ def signin(request):
     return render(request, 'signin.html', context)
 
 @login_required
-def profile(request,username):
-    if request.method == 'POST':
-        user = request.user
-        form = UserUpdateForm(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            user_form = form.save()
-            return redirect('profile', user_form.username)
-
+def profile(request, username):
     user = get_user_model().objects.filter(username=username).first()
     if user:
-        form = UserUpdateForm(instance=user)
-
         distros = Distro.objects.filter(user=user)
         patches = Patch.objects.filter(distro__user=user)
-        return render(request, 'users/profile.html', context={'form': form, 'user': user, 'distros': distros, 'patches': patches})
-
-    return redirect("profile")
+        return render(request, 'users/profile.html', context={'user': user, 'distros': distros, 'patches': patches})
 
 def contact(request):
     return render(request, 'contact.html')

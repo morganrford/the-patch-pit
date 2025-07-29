@@ -14,7 +14,7 @@
   </div>
 </div>
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and user.distro.id == distro.id %}
 <div class="edit-delete">
   <a href="{% url 'distro_update' distro.id %}" class="btn warn">Edit</a>
   <a href="{% url 'distro_delete' distro.id %}" class="btn danger">Delete</a>

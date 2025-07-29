@@ -14,7 +14,7 @@
   </div>
 </div>
 <div class="edit-delete">
-  {% if user.is_authenticated %}
+  {% if user.is_authenticated and patch.user.id == user.id %}
   <a href="{% url 'patch_update' patch.id %}" class="btn warn">Edit</a>
   <a href="{% url 'patch_delete' patch.id %}" class="btn danger">Delete</a>
   {% endif %}

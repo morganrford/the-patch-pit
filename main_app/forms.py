@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 class PatchForm(ModelForm):
     class Meta:
         model = Patch
-        fields = '__all__'
+        fields = ['name', 'photo', 'link', 'description', 'distro']
 
 class UploadForm(ModelForm):
     class Meta:
@@ -25,8 +25,6 @@ class LoginForm(forms.Form):
         password = forms.CharField(widget=forms.PasswordInput)
 
 class UserUpdateForm(forms.ModelForm):
-     email = forms.EmailField()
-
      class Meta:
           model = get_user_model()
-          fields = ['first_name', 'last_name', 'email']
+          fields = ['description']
