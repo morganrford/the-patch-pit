@@ -8,8 +8,9 @@
 <div class="patches">
   <div class="patch">
     <a href="{% url 'patch_detail' patch.id %}">
-      <img src="{{patch.photo.url}}" alt="Alt text" />
+      <img src="{{patch.photo.url}}" alt="{{ patch.name }}" />
     </a>
+    <a href="{{ patch.link }}" alt="{{ patch.name }}">Link</a>
     <p>{{patch.description}}</p>
   </div>
 </div>
