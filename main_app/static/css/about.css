@@ -15,3 +15,15 @@ body {
   flex-wrap: wrap;
   padding: 10px 50px 50px 50px;
 }
+
+.about-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.about-logo img {
+  width: 300px;
+  height: auto;
+}

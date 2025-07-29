@@ -29,7 +29,7 @@
   {% if distro.patch_set.all %} {% for patch in distro.patch_set.all %}
   <div class="patch">
     <a href="{% url 'patch_detail' patch.id %}">
-      <img src="{{ patch.photo.url }}" alt="{{ patch.name }} photo" />
+      <img src="{{ patch.photo.url }}" alt="{{ patch.name }}" />
       <h3>{{ patch.name }}</h3>
     </a>
   </div>

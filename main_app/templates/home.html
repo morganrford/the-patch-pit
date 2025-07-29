@@ -8,7 +8,7 @@
   {% for patch in patches %}
   <div class="patch">
     <a href="{% url 'patch_detail' patch.id %}">
-      <img src="{{ patch.photo.url }}" alt="{{ patch.name }} photo" />
+      <img src="{{ patch.photo.url }}" alt="{{ patch.name }}" />
     </a>
   </div>
   {% empty %}

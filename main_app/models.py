@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser
 
 class Distro(models.Model):
     name = models.CharField(max_length=100)
-    photo = models.ImageField(upload_to='main_app/distros/') 
+    photo = models.ImageField(upload_to='main_app/distros/')
     website = models.CharField(max_length=250)
     description = models.TextField(max_length=500)
 
@@ -16,12 +16,14 @@ class Distro(models.Model):
 
     def get_absolute_url(self):
         return reverse('distro_detail', kwargs={'distro_id': self.id})
-    
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+
+
 class Patch(models.Model):
     name = models.CharField(max_length=100)
-    photo = models.ImageField(upload_to='main_app/patches/') 
+    photo = models.ImageField(upload_to='main_app/patches/')
     link = models.CharField(max_length=250)
     description = models.TextField(max_length=500)
 
@@ -29,11 +31,14 @@ class Patch(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def get_absolute_url(self):
         return reverse('patch_detail', kwargs={'patch_id': self.id})
-    
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+
+
 class CustomUser(AbstractUser):
-    description = models.TextField("Description", max_length=500, blank=True, null=True)
+    description = models.TextField(
+        "Description", max_length=500, blank=True, null=True)

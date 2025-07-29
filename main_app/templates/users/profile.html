@@ -9,7 +9,7 @@
   {% for distro in distros %}
   <div class="distro">
     <a href="{% url 'distro_detail' distro.id %}">
-      <img src="{{distro.photo.url}}" alt="Alt text" />
+      <img src="{{distro.photo.url}}" alt="{{ distro.name }}" />
       <h3>{{ distro.name }}</h3>
     </a>
     <p>{{ distro.description }}</p>
@@ -22,7 +22,7 @@
   {% for patch in patches %}
   <div class="patch">
     <a href="{% url 'patch_detail' patch.id %}">
-      <img src="{{ patch.photo.url }}" alt="{{ patch.name }} photo" />
+      <img src="{{ patch.photo.url }}" alt="{{ patch.name }}" />
       <h3>{{ patch.name }}</h3>
     </a>
   </div>
