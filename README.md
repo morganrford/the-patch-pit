@@ -6,7 +6,7 @@
 
 The Patch Pit is a site for punk business owners and patch collectors. It's tough to find small punk distros on social media, and even harder to track down that one band patch your battle vest needs. The Patch Pit makes it easier — giving distros and screen printers a free space to share their products with the people who are looking for it.
 
-[Deployed App]()
+[Deployed App](https://the-patch-pit-dd750bdb214a.herokuapp.com/)
 
 [Planning Materials](https://trello.com/b/m5cgoLUt/the-patch-pit)
 
