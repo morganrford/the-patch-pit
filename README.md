@@ -50,3 +50,4 @@ The Patch Pit logos were created by me using [Krita](https://krita.org/en/) on m
 * Contact form
 * Comments section on patches
 * Report function for inappropriate content
+* Bio and social media links on user's profile

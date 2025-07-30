@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Distro, Patch
-from main_app.models import Distro, Patch
+from main_app.models import Distro, Patch, CustomUser
 from django.http import Http404
 from .forms import PatchForm, UserForm, UserUpdateForm
 from main_app.forms import UploadForm, PatchForm, LoginForm
@@ -12,6 +11,7 @@ from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 def home(request):
