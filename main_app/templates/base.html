@@ -17,6 +17,7 @@
   <body>
     <header>
       <nav class="navbar">
+        <!-- Left navigation links -->
         <ul class="nav-links">
           <li><a href="{% url 'home' %}">Home</a></li>
           <li><a href="{% url 'distro_index' %}">Distros</a></li>
@@ -24,18 +25,17 @@
           <li><a href="{% url 'about' %}">About</a></li>
           <li><a href="{% url 'contact' %}">Contact</a></li>
         </ul>
-        <ul class="nav-title">
-          <li class="logo">
-            <a href="/"
-              ><img
-                src="{% static 'assets/patchpit.jpg' %}"
-                alt="The Patch Pit"
-            /></a>
-          </li>
-        </ul>
 
-        {% if user.is_authenticated %}
+        <!-- Centered logo -->
+        <div class="logo-container">
+          <a href="/">
+            <img src="{% static 'assets/patchpit.jpg' %}" alt="The Patch Pit" />
+          </a>
+        </div>
+
+        <!-- Right user links -->
         <ul class="nav-user">
+          {% if user.is_authenticated %}
           <li>
             Fuck you,
             <a href="{% url 'profile' user.username %}"> {{user.username}} </a>
@@ -46,15 +46,14 @@
               <button type="submit" class="logout-button">Log out</button>
             </form>
           </li>
-        </ul>
-        {% else %}
-        <ul class="nav-user">
+          {% else %}
           <li><a href="{% url 'signin' %}">Sign In</a></li>
           <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          {% endif %}
         </ul>
-        {% endif %}
       </nav>
     </header>
+
     <main>{% block content %} {% endblock %}</main>
 
     <footer class="footer">
