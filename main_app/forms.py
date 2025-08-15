@@ -34,3 +34,6 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ['description']
+
+# class ContactForm(forms.Form):
+#     pass

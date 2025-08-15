@@ -11,6 +11,7 @@ from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import send_mail
 
 
 
@@ -204,4 +205,33 @@ def profile(request, username):
 
 
 def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('users-name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+
+        data = {
+            'name': name,
+            'email': email,
+            'subject': subject,
+            'message': message,
+        }
+
+        email_message = f"""
+        New message from {data['name']} ({data['email']}):
+        
+        {data['message']}
+        """
+
+        send_mail(
+            data['subject'],
+            email_message,
+            '',  # "from" email — leave empty to use DEFAULT_FROM_EMAIL
+            ['thepatchpitsite@gmail.com']
+        )
+
+        return render(request, 'contact.html', {'success': True})
+
     return render(request, 'contact.html')
+

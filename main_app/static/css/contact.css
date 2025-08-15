@@ -17,3 +17,62 @@ body {
   align-content: center;
   text-align: center;
 }
+
+.contact-form {
+  border: 2px solid white;
+  padding: 30px;
+  margin: 20px;
+}
+
+.button {
+  background-color: black;
+  color: white;
+  border-radius: 0px;
+  padding: 10px;
+  border: 2px solid white;
+}
+
+.button:hover {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+}
+
+.button:active {
+  background-color: black;
+  color: white;
+  border: 2px solid white;
+  transform: translateY(4px);
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; 
+}
+
+.form > div {
+  display: flex;
+  align-items: flex-start; /* top-aligns label with input/textarea */
+  /* gap: 1rem; */
+}
+
+.form > div label {
+  width: 100px;
+  text-align: right;
+  /* padding-top: 0.5rem; optional: tweak spacing to match inputs */
+}
+
+/* .form > div input,
+.form > div textarea {
+  flex: 1;
+  box-sizing: border-box;
+} */

@@ -10,7 +10,7 @@
 
     <p>thepatchpitsite@gmail.com</p>
   </div>
-  <div>
+  <!-- <div>
     <p>Instagram:</p>
 
     <a href="https://www.instagram.com/thepatchpitsite/">@thepatchpitsite</a>
@@ -19,6 +19,36 @@
     <p>Facebook:</p>
 
     <a href="https://www.facebook.com/thepatchpit">@thepatchpit</a>
-  </div>
+  </div> -->
+<div class="contact-form">
+  <h2>Got something to say?</h2>
+<form method="POST" action="" class="form" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-control">
+        <label for="users-name">Name:</label>
+        <input type="text" name="users-name" id="users-name">
+    </div>
+
+    <div class="form-control">
+        <label for="email">E-mail:</label>
+        <input type="text" name="email" id="email">
+    </div>
+
+    <div class="form-control">
+        <label for="subject">Subject:</label>
+        <input type="text" name="subject" id="subject">
+    </div>
+
+    <div class="form-control">
+        <label for="message">Message:</label>
+        <textarea name="message" id="message" cols="30" rows="10"></textarea>
+    </div>
+
+    <div class="button-wrapper">
+        <button type="submit" class="button">Submit</button>
+    </div>
+</form>
+</div>
 </div>
 {% endblock %}
